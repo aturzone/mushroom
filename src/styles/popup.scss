@@ -27,30 +27,30 @@
   --shadow:        rgba(0, 0, 0, 0.4);
 }
 
-// ── Light Mode — warm aged parchment, easy on the eyes ────────────────────────
+// ── Light Mode — warm oat/linen, soft and readable ────────────────────────────
 body.light {
-  --bg-primary:    #2C1F11;   // dark but warmer — like a lit mushroom den
-  --bg-secondary:  #251A0D;
-  --bg-card:       #32240F;
-  --bg-input:      #3A2A14;
-  --bg-hover:      #432F18;
+  --bg-primary:    #F2E9D8;
+  --bg-secondary:  #EAD9C2;
+  --bg-card:       #E2CEB0;
+  --bg-input:      #D8C49E;
+  --bg-hover:      #CDB890;
 
-  --text-primary:  #F0DDB8;
-  --text-secondary:#C9A06A;
-  --text-muted:    #856540;
+  --text-primary:  #231005;
+  --text-secondary:#5A3010;
+  --text-muted:    #8A5E30;
 
-  --accent:        #E09040;
-  --accent-hover:  #C97B2E;
-  --accent-glow:   rgba(224, 144, 64, 0.2);
+  --accent:        #8B4A0E;
+  --accent-hover:  #6E3808;
+  --accent-glow:   rgba(139, 74, 14, 0.18);
 
-  --safe:          #7EAF6A;
-  --warn:          #D4A847;
-  --danger:        #D05844;
+  --safe:          #3A6B2E;
+  --warn:          #7A5A08;
+  --danger:        #8B2010;
 
-  --border:        #3E2C16;
-  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border:        #C4A878;
+  --border-subtle: rgba(0,0,0,0.09);
 
-  --shadow:        rgba(0, 0, 0, 0.35);
+  --shadow:        rgba(60, 20, 0, 0.14);
 }
 
 // ── Reset ──────────────────────────────────────────────────────────────────────
@@ -104,6 +104,10 @@ body {
     align-items: center;
     justify-content: center;
     transition: transform 220ms ease;
+    background: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important;
     &:hover { transform: scale(1.1) rotate(-4deg); }
 
     img {
@@ -111,6 +115,7 @@ body {
       height: 36px;
       image-rendering: pixelated;
       image-rendering: crisp-edges;
+      background: transparent !important;
     }
   }
 
