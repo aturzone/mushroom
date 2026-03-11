@@ -48,6 +48,6 @@ export const DEFAULT_CONFIG: LinkGuardConfig = {
     metadata: {
         createdBy: "",
         createdAt: new Date().toISOString(),
-        description: "Default Link Guard configuration",
+        description: "Default Mushroom configuration",
     },
 };

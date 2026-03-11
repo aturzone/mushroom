@@ -1,6 +1,6 @@
 /**
  * Content script: shows a modern score tooltip when hovering over links.
- * LinkGuard v2.0
+ * Mushroom v2.0
  */
 
 interface TooltipScoreResponse {
@@ -15,11 +15,11 @@ let hideTimeout: ReturnType<typeof setTimeout> | null = null;
 
 function createTooltip(): HTMLElement {
     const el = document.createElement("div");
-    el.id = "linkguard-tooltip";
+    el.id = "mushroom-tooltip";
 
     const style = document.createElement("style");
     style.textContent = `
-        #linkguard-tooltip {
+        #mushroom-tooltip {
             position: fixed !important;
             z-index: 2147483646 !important;
             background: #111827 !important;
@@ -35,27 +35,27 @@ function createTooltip(): HTMLElement {
             transition: opacity 0.12s ease !important;
             -webkit-font-smoothing: antialiased !important;
         }
-        #linkguard-tooltip.lg-visible {
+        #mushroom-tooltip.lg-visible {
             display: flex !important;
             align-items: center !important;
             gap: 6px !important;
         }
-        #linkguard-tooltip .lg-tt-shield {
+        #mushroom-tooltip .lg-tt-shield {
             width: 16px !important;
             height: 16px !important;
             flex-shrink: 0 !important;
         }
-        #linkguard-tooltip .lg-tt-score {
+        #mushroom-tooltip .lg-tt-score {
             font-weight: 700 !important;
             font-size: 13px !important;
             letter-spacing: -0.3px !important;
         }
-        #linkguard-tooltip .lg-tt-label {
+        #mushroom-tooltip .lg-tt-label {
             color: #94A3B8 !important;
             font-size: 11px !important;
             font-weight: 500 !important;
         }
-        #linkguard-tooltip .lg-tt-divider {
+        #mushroom-tooltip .lg-tt-divider {
             width: 1px !important;
             height: 12px !important;
             background: rgba(255,255,255,0.1) !important;

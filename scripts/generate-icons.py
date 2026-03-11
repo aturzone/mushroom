@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Generate perfect LinkGuard icons at all sizes
+Generate perfect Mushroom icons at all sizes
 Requires: pip install pillow
 """
 
@@ -80,7 +80,7 @@ def main():
     script_dir = os.path.dirname(os.path.abspath(__file__))
     icons_dir = os.path.join(os.path.dirname(script_dir), 'icons')
     
-    print("Generating LinkGuard icons...\n")
+    print("Generating Mushroom icons...\n")
     
     for size in SIZES:
         output_path = os.path.join(icons_dir, f'icon-{size}.png')

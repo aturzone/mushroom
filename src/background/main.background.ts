@@ -77,10 +77,10 @@ async function initialize(): Promise<void> {
         return false;
     });
 
-    console.log("[Link Guard] Initialized successfully");
+    console.log("[Mushroom] Initialized successfully");
 }
 
 // Service worker entry point
 initialize().catch((err) => {
-    console.error("[Link Guard] Initialization failed:", err);
+    console.error("[Mushroom] Initialization failed:", err);
 });

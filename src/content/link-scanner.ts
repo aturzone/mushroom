@@ -138,5 +138,5 @@ function navigateToUrl(url: string, anchor: HTMLAnchorElement): void {
 function showOverlay(score: ScoreResponse, url: string, isBlocked: boolean): void {
     // Dispatch custom event for overlay.ts to pick up
     const detail = { score, url, isBlocked };
-    document.dispatchEvent(new CustomEvent("linkguard-show-overlay", { detail }));
+    document.dispatchEvent(new CustomEvent("mushroom-show-overlay", { detail }));
 }

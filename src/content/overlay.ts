@@ -1,6 +1,6 @@
 /**
  * Content script: renders full-page overlay for warnings/blocks.
- * LinkGuard v2.0 — modern glassmorphism design.
+ * Mushroom v2.0 — modern glassmorphism design.
  */
 
 interface OverlayEventDetail {
@@ -34,11 +34,11 @@ function createOverlay(detail: OverlayEventDetail): void {
         : `<svg viewBox="0 0 512 512" width="56" height="56"><path d="M256 28C256 28 56 100 56 100C56 100 56 300 56 300C56 420 256 492 256 492C256 492 456 420 456 420C456 300 456 100 456 100C456 100 256 28 256 28Z" stroke="${color}" stroke-width="24" fill="${color}" fill-opacity="0.1"/><line x1="256" y1="160" x2="256" y2="300" stroke="${color}" stroke-width="36" stroke-linecap="round"/><circle cx="256" cy="370" r="18" fill="${color}"/></svg>`;
 
     const overlay = document.createElement("div");
-    overlay.id = "linkguard-overlay";
+    overlay.id = "mushroom-overlay";
 
     const style = document.createElement("style");
     style.textContent = `
-        #linkguard-overlay {
+        #mushroom-overlay {
             position: fixed !important;
             inset: 0 !important;
             z-index: 2147483647 !important;
@@ -56,7 +56,7 @@ function createOverlay(detail: OverlayEventDetail): void {
             from { opacity: 0; }
             to { opacity: 1; }
         }
-        #linkguard-overlay .lg-ov-card {
+        #mushroom-overlay .lg-ov-card {
             background: #111827 !important;
             border: 1px solid #1E293B !important;
             border-radius: 16px !important;
@@ -71,21 +71,21 @@ function createOverlay(detail: OverlayEventDetail): void {
             from { opacity: 0; transform: scale(0.95) translateY(8px); }
             to { opacity: 1; transform: scale(1) translateY(0); }
         }
-        #linkguard-overlay .lg-ov-shield { margin-bottom: 16px !important; }
-        #linkguard-overlay .lg-ov-title {
+        #mushroom-overlay .lg-ov-shield { margin-bottom: 16px !important; }
+        #mushroom-overlay .lg-ov-title {
             font-size: 22px !important;
             font-weight: 800 !important;
             color: ${color} !important;
             margin-bottom: 6px !important;
             letter-spacing: -0.5px !important;
         }
-        #linkguard-overlay .lg-ov-subtitle {
+        #mushroom-overlay .lg-ov-subtitle {
             font-size: 13px !important;
             color: #94A3B8 !important;
             margin-bottom: 20px !important;
             line-height: 1.5 !important;
         }
-        #linkguard-overlay .lg-ov-score-chip {
+        #mushroom-overlay .lg-ov-score-chip {
             display: inline-flex !important;
             align-items: center !important;
             gap: 8px !important;
@@ -97,7 +97,7 @@ function createOverlay(detail: OverlayEventDetail): void {
             font-weight: 800 !important;
             color: ${color} !important;
         }
-        #linkguard-overlay .lg-ov-url {
+        #mushroom-overlay .lg-ov-url {
             background: #0B1120 !important;
             border: 1px solid #1E293B !important;
             padding: 10px 14px !important;
@@ -111,12 +111,12 @@ function createOverlay(detail: OverlayEventDetail): void {
             max-height: 60px !important;
             overflow-y: auto !important;
         }
-        #linkguard-overlay .lg-ov-actions {
+        #mushroom-overlay .lg-ov-actions {
             display: flex !important;
             gap: 10px !important;
             justify-content: center !important;
         }
-        #linkguard-overlay .lg-ov-btn {
+        #mushroom-overlay .lg-ov-btn {
             padding: 10px 24px !important;
             border: none !important;
             border-radius: 8px !important;
@@ -125,12 +125,12 @@ function createOverlay(detail: OverlayEventDetail): void {
             cursor: pointer !important;
             transition: all 0.12s ease !important;
         }
-        #linkguard-overlay .lg-ov-btn:hover { transform: translateY(-1px) !important; }
-        #linkguard-overlay .lg-ov-btn-safe {
+        #mushroom-overlay .lg-ov-btn:hover { transform: translateY(-1px) !important; }
+        #mushroom-overlay .lg-ov-btn-safe {
             background: #22C55E !important;
             color: #fff !important;
         }
-        #linkguard-overlay .lg-ov-btn-proceed {
+        #mushroom-overlay .lg-ov-btn-proceed {
             background: transparent !important;
             border: 1px solid #334155 !important;
             color: #64748B !important;
@@ -184,6 +184,6 @@ function escapeHtml(str: string): string {
 }
 
 // Listen for overlay events from link-scanner.ts
-document.addEventListener("linkguard-show-overlay", ((e: CustomEvent<OverlayEventDetail>) => {
+document.addEventListener("mushroom-show-overlay", ((e: CustomEvent<OverlayEventDetail>) => {
     createOverlay(e.detail);
 }) as EventListener);

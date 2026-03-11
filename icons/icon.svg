@@ -1,22 +1,20 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="gradient" x1="256" y1="64" x2="256" y2="448" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#60A5FA"/>
-      <stop offset="1" stop-color="#3B82F6"/>
-    </linearGradient>
-  </defs>
-  
-  <!-- Shield -->
-  <path d="M256 64L96 128V288C96 379.8 162.2 432 256 448C349.8 432 416 379.8 416 288V128L256 64Z" 
-        fill="url(#gradient)" 
-        stroke="#1E40AF" 
-        stroke-width="8"/>
-  
-  <!-- Checkmark -->
-  <path d="M192 256L240 304L336 208" 
-        stroke="white" 
-        stroke-width="32" 
-        stroke-linecap="round" 
-        stroke-linejoin="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Cap shadow -->
+  <ellipse cx="32" cy="30" rx="26" ry="20" fill="#3D2B1A" opacity="0.4"/>
+  <!-- Mushroom cap -->
+  <path d="M6 30 Q6 8 32 8 Q58 8 58 30 Z" fill="#6B3A1F"/>
+  <!-- Cap highlight -->
+  <path d="M14 22 Q20 12 32 10 Q44 12 50 22 Q42 18 32 18 Q22 18 14 22Z" fill="#8B4F2A" opacity="0.7"/>
+  <!-- White spots on cap -->
+  <circle cx="22" cy="20" r="5" fill="#F5ECD7"/>
+  <circle cx="40" cy="18" r="4" fill="#F5ECD7"/>
+  <circle cx="32" cy="26" r="3" fill="#F5ECD7" opacity="0.8"/>
+  <circle cx="14" cy="26" r="3" fill="#F5ECD7" opacity="0.7"/>
+  <circle cx="48" cy="25" r="2.5" fill="#F5ECD7" opacity="0.7"/>
+  <!-- Gills (underside of cap) -->
+  <path d="M8 30 Q20 36 32 36 Q44 36 56 30" fill="none" stroke="#C97B2E" stroke-width="1.5" opacity="0.5"/>
+  <!-- Stem -->
+  <path d="M24 36 Q22 52 24 56 Q28 58 32 58 Q36 58 40 56 Q42 52 40 36 Z" fill="#C97B2E"/>
+  <!-- Stem highlight -->
+  <path d="M26 38 Q25 50 26 54 Q28 56 30 56 L30 38 Z" fill="#D4924A" opacity="0.5"/>
 </svg>

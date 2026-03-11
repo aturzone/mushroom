@@ -1,6 +1,6 @@
 import { LinkGuardConfig, DEFAULT_CONFIG, CustomRule } from "../engine/models/config.model";
 
-const CONFIG_KEY = "link_guard_config";
+const CONFIG_KEY = "mushroom_config";
 
 export class ConfigService {
     async getConfig(): Promise<LinkGuardConfig> {

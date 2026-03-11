@@ -1,10 +1,10 @@
 {
     "extensionName": {
-        "message": "LinkGuard",
+        "message": "Mushroom",
         "description": "The name of the extension."
     },
     "extensionDescription": {
-        "message": "Offline link safety checker — analyzes URLs for phishing and malicious patterns before navigation. Fast, private, no data leaves your browser.",
+        "message": "Offline link safety scanner \u2014 analyzes URLs for phishing and malicious patterns before navigation. Fast, private, no data leaves your browser.",
         "description": "The description of the extension."
     },
     "safeLabel": {

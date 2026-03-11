@@ -4,7 +4,7 @@
 
 set -e
 
-echo "Generating LinkGuard icons..."
+echo "Generating Mushroom icons..."
 
 cd "$(dirname "$0")/.."
 

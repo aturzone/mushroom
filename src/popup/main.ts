@@ -1,5 +1,5 @@
 /**
- * LinkGuard v2.0 Popup — Complete rewrite with modern UI/UX
+ * Mushroom v2.0 Popup — Complete rewrite with modern UI/UX
  * Features: Full config editor, score ring, category analysis, quick scan, history filters
  */
 
@@ -95,10 +95,10 @@ function renderApp(): void {
     app.innerHTML = `
         <div class="popup-header">
             <div class="header-left">
-                <img src="../icons/icon-48.png" class="logo-icon" alt="LinkGuard" />
+                <img src="../icons/icon-48.png" class="logo-icon" alt="Mushroom" style="image-rendering:pixelated;width:36px;height:36px" />
                 <div class="logo-text">
-                    <span class="brand-name">LinkGuard</span>
-                    <span class="brand-sub">Link Safety</span>
+                    <span class="brand-name">Mushroom</span>
+                    <span class="brand-sub">Link Scanner</span>
                 </div>
             </div>
             <div class="header-actions">
@@ -113,7 +113,7 @@ function renderApp(): void {
         </div>
         <div class="tab-content" id="tab-content"></div>
         <div class="popup-footer">
-            <span>LinkGuard v${escapeHtml(currentConfig.version)}</span>
+            <span>Mushroom v${escapeHtml(currentConfig.version)}</span>
             <span>Open Source</span>
         </div>
     `;
@@ -347,8 +347,8 @@ function setupQuickScan(): void {
 }
 
 function loadRecentScans(): void {
-    chrome.storage.local.get("link_guard_history", (result) => {
-        const history: HistoryEntry[] = (result.link_guard_history || []).slice(0, 5);
+    chrome.storage.local.get("mushroom_history", (result) => {
+        const history: HistoryEntry[] = (result.mushroom_history || []).slice(0, 5);
         const container = document.getElementById("recent-scans");
         if (!container) return;
 
@@ -664,7 +664,7 @@ function renderConfig(): void {
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = `linkguard-config-${new Date().toISOString().slice(0, 10)}.json`;
+        a.download = `mushroom-config-${new Date().toISOString().slice(0, 10)}.json`;
         a.click();
         URL.revokeObjectURL(url);
         showToast("Config exported");
@@ -813,7 +813,7 @@ function renderHistory(): void {
 
     document.getElementById("clear-history")?.addEventListener("click", async () => {
         if (confirm("Clear all scan history?")) {
-            await chrome.storage.local.remove("link_guard_history");
+            await chrome.storage.local.remove("mushroom_history");
             showToast("History cleared");
             renderHistory();
         }
@@ -821,8 +821,8 @@ function renderHistory(): void {
 }
 
 function loadHistoryStats(): void {
-    chrome.storage.local.get("link_guard_history", (result) => {
-        const history: HistoryEntry[] = result.link_guard_history || [];
+    chrome.storage.local.get("mushroom_history", (result) => {
+        const history: HistoryEntry[] = result.mushroom_history || [];
         const safe = history.filter(h => h.overallScore >= currentConfig.settings.warningThreshold).length;
         const warned = history.filter(h => h.overallScore >= currentConfig.settings.blockThreshold && h.overallScore < currentConfig.settings.warningThreshold).length;
         const blocked = history.filter(h => h.overallScore < currentConfig.settings.blockThreshold).length;
@@ -840,8 +840,8 @@ function loadHistoryStats(): void {
 }
 
 function loadHistory(): void {
-    chrome.storage.local.get("link_guard_history", (result) => {
-        let history: HistoryEntry[] = result.link_guard_history || [];
+    chrome.storage.local.get("mushroom_history", (result) => {
+        let history: HistoryEntry[] = result.mushroom_history || [];
         const list = document.getElementById("history-list");
         if (!list) return;
 

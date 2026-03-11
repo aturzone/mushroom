@@ -1,6 +1,6 @@
 import { SafetyScore } from "../engine/models/safety-score.model";
 
-const HISTORY_KEY = "link_guard_history";
+const HISTORY_KEY = "mushroom_history";
 const MAX_HISTORY = 1000;
 
 export interface HistoryEntry {
