@@ -76,13 +76,24 @@ async function init(): Promise<void> {
 
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     if (tab?.url) {
-        chrome.runtime.sendMessage(
-            { type: "GET_CURRENT_SCORE", url: tab.url },
-            (score: PopupScore) => {
-                currentScore = score;
-                if (currentTab === "dashboard") renderDashboard();
-            },
-        );
+        try {
+            chrome.runtime.sendMessage(
+                { type: "GET_CURRENT_SCORE", url: tab.url },
+                (score: PopupScore) => {
+                    if (chrome.runtime.lastError) {
+                        console.warn("[Mushroom] SW not ready:", chrome.runtime.lastError.message);
+                        currentScore = null;
+                        if (currentTab === "dashboard") renderDashboard();
+                        return;
+                    }
+                    currentScore = score;
+                    if (currentTab === "dashboard") renderDashboard();
+                },
+            );
+        } catch (e) {
+            console.warn("[Mushroom] sendMessage failed:", e);
+            if (currentTab === "dashboard") renderDashboard();
+        }
     }
 }
 
@@ -106,7 +117,22 @@ function renderApp(): void {
                 </div>
             </div>
             <div class="header-actions">
-                <button class="header-btn theme-btn" id="theme-toggle" title="Toggle theme">${document.body.classList.contains('light') ? '🌙' : '☀️'}</button>
+                <button class="header-btn theme-btn" id="theme-toggle" title="Toggle theme" aria-label="Toggle theme">
+                    <svg class="theme-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle class="sun-core" cx="12" cy="12" r="4.5"/>
+                        <g class="sun-rays">
+                            <line x1="12" y1="2" x2="12" y2="5"/>
+                            <line x1="12" y1="19" x2="12" y2="22"/>
+                            <line x1="2" y1="12" x2="5" y2="12"/>
+                            <line x1="19" y1="12" x2="22" y2="12"/>
+                            <line x1="4.9" y1="4.9" x2="7.1" y2="7.1"/>
+                            <line x1="16.9" y1="16.9" x2="19.1" y2="19.1"/>
+                            <line x1="4.9" y1="19.1" x2="7.1" y2="16.9"/>
+                            <line x1="16.9" y1="7.1" x2="19.1" y2="4.9"/>
+                        </g>
+                        <path class="moon-shape" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                </button>
                 <button class="header-btn" id="quick-scan-toggle" title="Quick Scan">${ICONS.search}</button>
             </div>
         </div>
@@ -134,8 +160,6 @@ function renderApp(): void {
     document.getElementById("theme-toggle")?.addEventListener("click", () => {
         const isLight = document.body.classList.toggle("light");
         localStorage.setItem("mushroom_theme", isLight ? "light" : "dark");
-        const btn = document.getElementById("theme-toggle");
-        if (btn) btn.textContent = isLight ? "🌙" : "☀️";
     });
 
     document.getElementById("quick-scan-toggle")?.addEventListener("click", () => {
@@ -342,15 +366,23 @@ function setupQuickScan(): void {
         if (!url) return;
         let fullUrl = url;
         if (!/^https?:\/\//i.test(fullUrl)) fullUrl = "https://" + fullUrl;
-        chrome.runtime.sendMessage(
-            { type: "SCORE_URL", url: fullUrl },
-            (score: PopupScore) => {
-                if (score) {
-                    currentScore = score;
-                    renderDashboard();
-                }
-            },
-        );
+        try {
+            chrome.runtime.sendMessage(
+                { type: "SCORE_URL", url: fullUrl },
+                (score: PopupScore) => {
+                    if (chrome.runtime.lastError) {
+                        showToast("Scanner not ready, please retry", "error");
+                        return;
+                    }
+                    if (score) {
+                        currentScore = score;
+                        renderDashboard();
+                    }
+                },
+            );
+        } catch (e) {
+            showToast("Scanner not ready, please retry", "error");
+        }
     };
 
     btn?.addEventListener("click", doScan);

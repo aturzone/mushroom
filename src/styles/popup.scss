@@ -27,30 +27,30 @@
   --shadow:        rgba(0, 0, 0, 0.4);
 }
 
-// ── Light Mode ─────────────────────────────────────────────────────────────────
+// ── Light Mode — warm aged parchment, easy on the eyes ────────────────────────
 body.light {
-  --bg-primary:    #FAF4EB;
-  --bg-secondary:  #F2E8D8;
-  --bg-card:       #EDE0CA;
-  --bg-input:      #E4D3BA;
-  --bg-hover:      #D9C5A6;
+  --bg-primary:    #2C1F11;   // dark but warmer — like a lit mushroom den
+  --bg-secondary:  #251A0D;
+  --bg-card:       #32240F;
+  --bg-input:      #3A2A14;
+  --bg-hover:      #432F18;
 
-  --text-primary:  #2A1A08;
-  --text-secondary:#5C3D1A;
-  --text-muted:    #9B7A50;
+  --text-primary:  #F0DDB8;
+  --text-secondary:#C9A06A;
+  --text-muted:    #856540;
 
-  --accent:        #A85E18;
-  --accent-hover:  #8A4C10;
-  --accent-glow:   rgba(168, 94, 24, 0.15);
+  --accent:        #E09040;
+  --accent-hover:  #C97B2E;
+  --accent-glow:   rgba(224, 144, 64, 0.2);
 
-  --safe:          #4A7C3F;
-  --warn:          #A07820;
-  --danger:        #9B2E20;
+  --safe:          #7EAF6A;
+  --warn:          #D4A847;
+  --danger:        #D05844;
 
-  --border:        #C8B090;
-  --border-subtle: rgba(0, 0, 0, 0.07);
+  --border:        #3E2C16;
+  --border-subtle: rgba(255, 255, 255, 0.06);
 
-  --shadow:        rgba(80, 40, 0, 0.12);
+  --shadow:        rgba(0, 0, 0, 0.35);
 }
 
 // ── Reset ──────────────────────────────────────────────────────────────────────
@@ -936,3 +936,33 @@ body {
 .dot-safe    { background: var(--safe); }
 .dot-warn    { background: var(--warn); }
 .dot-danger  { background: var(--danger); }
+
+// ── Animated Sun / Moon theme toggle ──────────────────────────────────────────
+.theme-icon {
+  width: 17px;
+  height: 17px;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  overflow: visible;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+
+  // SUN state (dark mode — show sun to indicate "switch to light")
+  .sun-core  { opacity: 1; transition: opacity 0.3s, r 0.4s; }
+  .sun-rays  {
+    opacity: 1;
+    transform-origin: 12px 12px;
+    transition: opacity 0.3s 0.1s, transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    line { stroke-width: 2; stroke-linecap: round; }
+  }
+  .moon-shape { opacity: 0; transition: opacity 0.3s; }
+}
+
+// MOON state (light mode — show moon to indicate "switch to dark")
+body.light .theme-icon {
+  transform: rotate(20deg);
+
+  .sun-core  { opacity: 0; }
+  .sun-rays  { opacity: 0; transform: rotate(120deg) scale(0.6); }
+  .moon-shape { opacity: 1; transition: opacity 0.3s 0.15s; }
+}
