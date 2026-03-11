@@ -92,6 +92,10 @@ function renderApp(): void {
     const app = document.getElementById("app");
     if (!app) return;
 
+    // Load saved theme
+    const savedTheme = localStorage.getItem("mushroom_theme") || "dark";
+    if (savedTheme === "light") document.body.classList.add("light");
+
     app.innerHTML = `
         <div class="popup-header">
             <div class="header-left">
@@ -102,6 +106,7 @@ function renderApp(): void {
                 </div>
             </div>
             <div class="header-actions">
+                <button class="header-btn theme-btn" id="theme-toggle" title="Toggle theme">${document.body.classList.contains('light') ? '🌙' : '☀️'}</button>
                 <button class="header-btn" id="quick-scan-toggle" title="Quick Scan">${ICONS.search}</button>
             </div>
         </div>
@@ -124,6 +129,13 @@ function renderApp(): void {
             btn.classList.add("active");
             switchTab((btn as HTMLElement).dataset.tab || "dashboard");
         });
+    });
+
+    document.getElementById("theme-toggle")?.addEventListener("click", () => {
+        const isLight = document.body.classList.toggle("light");
+        localStorage.setItem("mushroom_theme", isLight ? "light" : "dark");
+        const btn = document.getElementById("theme-toggle");
+        if (btn) btn.textContent = isLight ? "🌙" : "☀️";
     });
 
     document.getElementById("quick-scan-toggle")?.addEventListener("click", () => {
@@ -281,15 +293,14 @@ function renderDashboard(): void {
         <div class="score-ring-container">
             <div class="score-ring">
                 <svg viewBox="0 0 120 120">
-                    <circle class="ring-bg" cx="60" cy="60" r="50"/>
+                    <circle class="ring-track" cx="60" cy="60" r="50"/>
                     <circle class="ring-fill" cx="60" cy="60" r="50"
-                        stroke="${color}"
                         stroke-dasharray="${circumference}"
                         stroke-dashoffset="${offset}"/>
                 </svg>
                 <div class="score-inner">
-                    <span class="score-number" style="color:${color}">${score}</span>
-                    <span class="score-percent" style="color:${color}">%</span>
+                    <span class="score-number">${score}</span>
+                    <span class="score-percent">%</span>
                 </div>
             </div>
             <div class="score-label">${currentScore.configOverride ? `Override: ${currentScore.configOverride}` : "Safety Score"}</div>
@@ -369,7 +380,7 @@ function loadRecentScans(): void {
                 <div class="scan-item">
                     <span class="scan-dot ${cls}"></span>
                     <span class="scan-url" title="${escapeHtml(entry.url)}">${escapeHtml(truncUrl(entry.url))}</span>
-                    <span class="scan-score" style="color:${c}">${entry.overallScore}%</span>
+                    <span class="scan-score" >${entry.overallScore}%</span>
                     <span class="scan-time">${formatTime(entry.timestamp)}</span>
                 </div>
             `;
@@ -875,7 +886,7 @@ function loadHistory(): void {
                         <div class="history-url" title="${escapeHtml(entry.url)}">${escapeHtml(truncUrl(entry.url, 38))}</div>
                         <div class="history-meta">${formatTime(entry.timestamp)}${entry.configOverride ? ` \u00b7 ${entry.configOverride}` : ""}</div>
                     </div>
-                    <span class="history-score" style="color:${c}">${entry.overallScore}%</span>
+                    <span class="history-score" >${entry.overallScore}%</span>
                 </div>
             `;
         }).join("");
